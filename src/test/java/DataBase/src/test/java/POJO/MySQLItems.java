@@ -1,9 +1,10 @@
 package DataBase.src.test.java.POJO;
 
+/**
+ * This class represents the all Tables data in Mysql database
+ */
 public class MySQLItems {
 
-
-    //This class represents the all Tables in Mysql database
 
     private int itemSerialNumber;
     private String itemName;

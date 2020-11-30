@@ -1,9 +1,10 @@
 package DataBase.src.test.java.POJO;
 
+/**
+ * This class represents the all data Tables in Oracle database
+ */
 public class OracleTables {
 
-
-    //This class represents the all Tables in Oracle database
 
     private int itemSerialNumber;
     private String itemName;

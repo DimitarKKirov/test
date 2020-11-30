@@ -20,6 +20,12 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * Class used for creating WebDrivers for the requested web browser
+ * this driver class is used for local, remote testing and
+ * uses the requested web browser exe file and
+ * Maven library selenium-remote-driver
+ */
 public class EmagRegularElements implements DriverSwitchBrowser {
 
     /*
@@ -37,8 +43,6 @@ public class EmagRegularElements implements DriverSwitchBrowser {
     private static String browserProperty;
 
 
-
-
     private static void setDriver(WebDriver driver) {
         LillyRegularsElements.driver = driver;
     }
@@ -52,14 +56,24 @@ public class EmagRegularElements implements DriverSwitchBrowser {
     }
 
 
-    /*
-       method for initialization of a remote web driver
-       which driver will be created is based on the passed string for browser name
-       after that check of the String browserName is passed the driver is created
-       with the needed options,then the method returns the created driver and makes
-       connection with the container via the docker url variable and opens the passed
-       String variable for Url
-    */
+    /**
+     * method for initialization of a remote web driver
+     * which driver will be created is based on the passed string for browser name
+     * after that check of the String browserName is passed the driver is created
+     * with the needed options,then the method returns the created driver and makes
+     * connection with the container via the docker url variable and opens the passed
+     * String variable for Url
+     *
+     * @param url         this parameter hold the passed url String from where
+     *                    the method is used, after the driver is instantiated
+     *                    the url is opened on the particular browser instance
+     * @param browserName hold the String name of the browser that needs to be open
+     *                    and its used for a guide to the needed driver instance
+     *                    ant its parameters
+     * @return the method returns the instantiated driver for further use
+     *         with his build in methods
+     * @throws MalformedURLException
+     */
     public WebDriver remoteConnect(String url, String browserName) throws MalformedURLException {
 
 
@@ -89,8 +103,15 @@ public class EmagRegularElements implements DriverSwitchBrowser {
         return dockerDriver;
     }
 
-    // depending on the name the method choose which
-    // driver properties to load
+
+    /**
+     * depending on the name the method choose which
+     * driver properties to load
+     *
+     * @param s comes from the method startBrowser
+     *          its holding the name of the browser that
+     *          is passed to the startBrowser method
+     */
     private void changeBrowser(String s) {
         String path;
         try {
@@ -113,11 +134,23 @@ public class EmagRegularElements implements DriverSwitchBrowser {
 
     }
 
-    // method for initialization of a web driver
-    // before the driver is created
-    // the driver properties are loaded based on the name of the browser
-    // that is checked in the changeBrowser method
-    // this is only for exe web drivers
+    /**
+     * method for initialization of a web driver
+     * before the driver is created
+     * the driver properties are loaded based on the name of the browser
+     * that is checked in the changeBrowser method
+     * this is only for executable web drivers
+     *
+     * @param url this parameter hold the passed url String from where
+     *            the method is used, after the driver is instantiated
+     *            the url is opened on the particular browser instance
+     * @param browserName hold the String name of the browser that needs to be open
+     *                    and its used for a guide to the needed driver instance
+     *                    ant its parameters
+     *
+     * @return the method returns the instantiated driver for further use
+     * with his build in methods
+     */
     public WebDriver startBrowser(String url, String browserName) {
 
         changeBrowser(browserName);
@@ -143,74 +176,86 @@ public class EmagRegularElements implements DriverSwitchBrowser {
 
     }
 
-    /*
-    * using the local driver
-    * the method is instantiating a WebDriver wait class
-    * that can be use in every
-    * page object class of the current Emag test project if need
-    * that extends this class
-    */
+    /**
+     * using the local driver
+     * the method is instantiating a WebDriver wait class
+     * that can be use in every
+     * page object class of the current Emag test project if need
+     * that extends this class
+     * @param timeOut integer parameter representing the seconds that
+     *                the driver will wait
+     *
+     * @return returning class WebDriverWait for the usage of
+     * the build in functionality of the class
+     */
     public WebDriverWait createWait(int timeOut) {
         return new WebDriverWait(driver, timeOut);
     }
 
-    /*
-     *  using the local driver the method is locating and returning the web element of
-     *  shop logo for validation
+    /**
+     * using the local driver the method is locating and returning the web element of
+     * shop logo for validation
+     *
+     * @return WebElement of Emag logo
      */
     public WebElement getMsg() {
         return driver.findElement(By.xpath("//img[@alt=\"eMAG\"]"));
     }
 
-    /*
-     *  using the remote driver that is set to connect and
-     *  use the docker standalone chrome/firefox container     *
-     *  the method is locating and returning the web element of
-     *  shop logo for validation
+    /**
+     * using the remote driver that is set to connect and
+     * use the docker standalone chrome/firefox container
+     * the method is locating and returning the web element of
+     * shop logo for validation
+     * @return WebElement of Emag logo
      */
     public WebElement getMsgRemote() {
         return dockerDriver.findElement(By.xpath("//img[@alt=\"eMAG\"]"));
     }
 
-    /*
-     *  using the local driver the method is locating and returning a String of
-     *  the page title that the driver is currently on
+    /**
+     * using the local driver the method is locating and returning a String of
+     * the page title that the driver is currently on
+     * @return String of the name of page title that the driver
+     * is currently on
      */
     public String getPageTitle() {
 
         return driver.getTitle();
     }
 
-    /*
-     *  using the local driver the method returning
-     *  a web element that is corresponding to the passed
-     *  String argument of an xpath
+
+    /**
+     * using the local driver the method returning
+     * a web element that is corresponding to the passed
+     * String argument of an xpath
+     * @param xpath xpath for the element that need to be found and returned
+     * @return found WebElement returned for further usage
      */
     public WebElement getPageTitleElement(String xpath) {
         return driver.findElement(By.xpath(xpath));
     }
 
-    /*
-     *using the local driver build in method
-     * we are quiting it
-     * by doing so we are closing the current browser
+    /**
+     * using the local driver build in method
+     * for quiting the current browser
      */
     public void quitBrowser() {
         driver.quit();
     }
 
-    /*
-     *  using the remote driver build in method
-     * we are closing the connection to the container instance
+    /**
+     * using the remote driver build in method
+     * closing the connection to the container instance
      */
     public void remoteClose() {
         dockerDriver.close();
     }
 
-    /*
+
+    /**
      * using the remote driver build in method
-     * we are quiting it
-     * by doing so we are closing the current browser
+     * for quiting the current browser
      */
     public void quitRemoteBrowser() {
         dockerDriver.quit();

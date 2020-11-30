@@ -1,5 +1,8 @@
 package DataBase.src.test.java.sqlRequests;
 
+/**
+ * interface storing the database sql queries for Mysql database
+ */
 public interface SQLQueries {
 
 

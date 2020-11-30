@@ -4,7 +4,12 @@ import DataBase.src.test.java.POJO.*;
 
 import java.util.List;
 
+/**
+ * interface for method guidance,
+ * methods are used for database operations
+ */
 public interface DatabaseHelper {
+
 
     List<MySQLItems> getAllData();
     List<OracleTables> getAllDataOracle();

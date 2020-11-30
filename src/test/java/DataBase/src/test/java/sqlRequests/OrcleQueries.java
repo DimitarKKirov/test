@@ -1,5 +1,8 @@
 package DataBase.src.test.java.sqlRequests;
 
+/**
+ * interface storing the database sql queries for Oracle database
+ */
 public interface OrcleQueries {
 
     String orcleGetALL=" select * from testdb.Items ,testdb.ItemsDetails ,testdb.ItemsLoadingDetails ";

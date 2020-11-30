@@ -1,24 +1,22 @@
 package Selenium.pageObjects.Drivers;
 
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Properties;
 
+/**
+ * Class used for creating WebDrivers for the requested web browser
+ * this driver class is used only for local testing and
+ * uses the requested web browser exe file
+ */
 public class Drivers implements DriverSwitchBrowser {
 
-    // Class used for creating WebDrivers for the requested web browser
-    // this driver class is used only for local testing and
-    // uses the requested web browser exe file
 
     private WebDriver driver;
     private static String browserName;
@@ -30,9 +28,14 @@ public class Drivers implements DriverSwitchBrowser {
         this.driver = driver;
     }
 
-
-    // depending on the name the method choose which
-    // driver properties to load
+    /**
+     * depending on the name the method choose which
+     * driver properties to load
+     *
+     * @param s comes from the method startBrowser
+     *          its holding the name of the browser that
+     *          is passed to the startBrowser method
+     */
     private void changeBrowser(String s) {
         String path;
         try {
@@ -53,11 +56,25 @@ public class Drivers implements DriverSwitchBrowser {
 
     }
 
-    // method for initialization of a web driver
-    // before the driver is created
-    // the driver properties are loaded based on the name of the browser
-    // that is checked in the changeBrowser method
-    // this is only for exe web drivers
+
+
+    /**
+     * method for initialization of a web driver
+     * before the driver is created
+     * the driver properties are loaded based on the name of the browser
+     * that is checked in the changeBrowser method
+     * this is only for exe web drivers
+     *
+     * @param url this parameter hold the passed url String from where
+     *            the method is used, after the driver is instantiated
+     *            the url is opened on the particular browser instance
+     * @param browserName hold the String name of the browser that needs to be open
+     *                    and its used for a guide to the needed driver instance
+     *                    ant its parameters
+     *
+     * @return the method returns the instantiated driver for further use
+     * with his build in methods
+     */
     public WebDriver startBrowser(String url, String browserName) {
 
         changeBrowser(browserName);

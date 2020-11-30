@@ -1,9 +1,9 @@
 package DataBase.src.test.java.POJO;
 
+/**
+ * This class represents the database Table ItemsLoadingDetails
+ */
 public class ItemsLoadingDetails {
-
-    //This class represents the database Table ItemsLoadingDetails
-
 
     private String itemPaidPricePerPiece;
     private String detailsID;

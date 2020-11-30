@@ -6,4 +6,4 @@ Feature: search
 
   Scenario: search for item
     When user enters search criteria "Harry"
-    Then the user can see the results
+    Then the user can see the results "82 резултати, открити за:"

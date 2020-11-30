@@ -1,9 +1,10 @@
 package DataBase.src.main.java.DataBase.POJOForTables;
 
+/**
+ * class representing the database ItemsLoadingDetails Table
+ * for filling and retrieving the data in the table
+ */
 public class ItemsLoadingDetails {
-
-    //class representing the database ItemsLoadingDetails Table
-    //for filling the data in the table
 
     private String itemPaidPricePerPiece;
     private String detailsID;

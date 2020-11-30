@@ -3,10 +3,12 @@ package DataBase.src.main.java.DataBase.POJOForTables;
 
 import DataBase.src.main.java.DataBase.Driver.Paths;
 
+/**
+ * class representing the database Item Table
+ * for filling the data in the table
+ */
 public class Items implements Paths {
 
-    //class representing the database Item Table
-    //for filling the data in the table
 
 
     private String itemsSerialNumber;

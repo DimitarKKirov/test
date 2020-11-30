@@ -17,10 +17,6 @@ public class TablesMysql {
         Driver.createMySQLConnection();
     }
 
-    public List<MySQLItems> getAllData() {
-        return Driver.getAllData();
-    }
-
     public int getCount() {
         return Driver.getItemsCount();
     }
@@ -29,17 +25,6 @@ public class TablesMysql {
         return Driver.getItemByID(iD);
     }
 
-    public ItemsDetails getItemDetailsByID(int ID) {
-        return Driver.getItemDetailsByID(ID);
-    }
-
-    public ItemsLoadingDetails getItemLoadingDetailsByID(int ID) {
-        return Driver.getItemLoadingDetailsByID(ID);
-    }
-
-    public String getItemByName(String name) {
-        return Driver.getItemByName(name);
-    }
 
     public int getItemDetailsCount() {
         return Driver.getItemsDetailsCount();

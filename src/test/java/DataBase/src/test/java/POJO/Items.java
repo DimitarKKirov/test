@@ -10,9 +10,11 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * This class represents the database Table Items
+ */
 public class Items implements Paths {
 
-    //This class represents the database Table Items
 
     private int itemSerialNumber;
     private String itemName;

@@ -40,10 +40,10 @@ public class EmagSearchForItems {
         searchEmag.clickSearchRemote();
     }
 
-    @Then("the user can see the results")
-    public void the_user_can_see_the_results() {
+    @Then("the user can see the results {string}")
+    public void the_user_can_see_the_results(String expected) {
         String result = searchEmag.remoteSearchResult();
-        Assert.assertEquals("85 резултати, открити за:", result);
+        Assert.assertEquals(expected, result);
 
     }
 }

@@ -15,11 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * TestDataForOracle is a class that sends dummy data form Json file to a Oracle database
+ * or any other that is configured
+ * if the property files are changed wit the correct sql syntax
+ * it can be use for other types of DB
+ * they are 2 json files used for this project for the two different databases
+ * in package SqlCreationRequests itemsFields.json and ItemsOracle.json
+ * with the goal in mind of data being entered incorrectly in one of the files
+ * for testing purposes
+ * but they can be reduced to 1 if need have raised
+ * This class uses Yank library
+ * Yank can maintain only one connection at a time
+ */
 public class TestDataForOracle implements Paths {
 
-    // TestDataForMysql is a class that sends dummy data form Json file to a Oracle database
-    // if the property files are changed wit the correct sql syntax
-    // it can be use for other types of DB
 
 
     private Properties connection = PropertiesUtils.getPropertiesFromPath("./src/main/java/DataBase/Driver/PostgresConnection.properties");
@@ -31,37 +41,55 @@ public class TestDataForOracle implements Paths {
     private List<ItemsLoadingDetails> itemsLoadingDetails;
     private ItemsLoadingDetails loadingDetails;
 
-    // using Yank library, the method is sending sql request for creating table
+    /**
+     * using Yank library, the method is sending sql request for creating table
+     * the Yank build in method send sql statement "TABLE_ITEMS" that is implemented from
+     * the Paths interface
+     */
     public void createTableItems() {
         String items = "TABLE_ITEMS";
         Yank.executeSQLKey(items, null);
     }
 
-    // using Yank library, the method is sending sql request for creating table
+    /**
+     * using Yank library, the method is sending sql request for creating table
+     * the Yank build in method send sql statement "TABLE_ITEMS_DETAILS" that is implemented from
+     * the Paths interface
+     */
     public void createTableItemsDetails() {
         String items = "TABLE_ITEMS_DETAILS";
         Yank.executeSQLKey(items, null);
     }
 
-    // using Yank library, the method is sending sql request for creating table
+    /**
+     * using Yank library, the method is sending sql request for creating table
+     * the Yank build in method send sql statement "TABLE_ITEMS_STORE_LOADING_DETAILS" that is implemented from
+     * the Paths interface
+     */
     public void createTableItemsLoadingDetails() {
         String items = "TABLE_ITEMS_STORE_LOADING_DETAILS";
         Yank.executeSQLKey(items, null);
     }
 
-    // using Yank library, the method is creating connection using the variables
-    // in the file Connection.properties, the keys must be with the same names as in this file
-    // otherwise Yank does not recognises them (Yank version - 3.3.3)
-    // with the sql statement the method is creating the tables in mysql
+
+    /**
+     * using Yank library, the method is creating connection using the variables in the file Connection.properties,
+     * the keys must be with the same names as in this file
+     * otherwise Yank does not recognises them (Yank version - 3.3.3)
+     * with the sql statement the method is creating the tables in Oracle
+     */
     public void createConnection() {
 
         Yank.setupDefaultConnectionPool(connection);
         Yank.addSQLStatements(sql);
     }
-    // method for filling the data in table Items
-    // from a json file the method is taking
-    // ItemName and ItemSerialNumber based on the key-pare value
-    // and adding them in a global arraylist
+
+    /**
+     * helper method for data preparation for table Items
+     * from a json file (jsonPath) the method is taking
+     * ItemName and ItemSerialNumber based on the key-pare value
+     * and adding them in a global arraylist itemName
+     */
     void itemsFields() {
         JSONParser reader = new JSONParser();
         itemName = new ArrayList<>();
@@ -84,11 +112,12 @@ public class TestDataForOracle implements Paths {
             e.printStackTrace();
         }
     }
-    // from the global arraylist itemName
-    // data is pulled out
-    // and send to the database with Yank execute method
-    // this two methods
-    // (this one and the previous one) are repeated for every table that needs data for the current project
+
+    /**
+     * from the global arraylist itemName
+     * data is pulled out
+     * and send to the database with Yank execute method
+     */
     public void populateItems() {
         System.out.println(itemName.size());
         Object[][] tempObj = new Object[itemName.size()][];
@@ -100,7 +129,12 @@ public class TestDataForOracle implements Paths {
         String sql = "TableItemsFill";
         Yank.executeBatchSQLKey(sql, tempObj);
     }
-
+    /**
+     * helper method for data preparation for table itemsDetails
+     * from a json file (jsonPath) the method is taking
+     * ItemQuantity, ItemSellingPrice and ItemID based on the key-pare value
+     * and adding them in a global arraylist itemsDetails
+     */
     void itemsDetailsFields() {
         JSONParser reader = new JSONParser();
         itemsDetails = new ArrayList<>();
@@ -123,7 +157,11 @@ public class TestDataForOracle implements Paths {
             e.printStackTrace();
         }
     }
-
+    /**
+     * from the global arraylist itemsDetails
+     * data is pulled out
+     * and send to the database with Yank execute method Yank.executeBatchSQLKey(String, Object[][])
+     */
     public void populateItemsDetails() {
         System.out.println(itemsDetails.size());
         Object[][] tempObj = new Object[itemsDetails.size()][];
@@ -136,6 +174,12 @@ public class TestDataForOracle implements Paths {
         Yank.executeBatchSQLKey(sql, tempObj);
     }
 
+    /**
+     *helper method for data preparation for table loadingDetails
+     * from a json file (jsonPath) the method is taking
+     * ItemPaidPricePerPiece and DetailsID based on the key-pare value
+     * and adding them in a global arraylist itemsLoadingDetails
+     */
     void itemsLoadingDetailsFields() {
         JSONParser reader = new JSONParser();
         itemsLoadingDetails = new ArrayList<>();
@@ -158,7 +202,11 @@ public class TestDataForOracle implements Paths {
             e.printStackTrace();
         }
     }
-
+    /**
+     * from the global arraylist itemsLoadingDetails
+     * data is pulled out
+     * and send to the database with Yank execute method Yank.executeBatchSQLKey(String, Object[][])
+     */
     public void populateLoadingDetails() {
         System.out.println(itemsLoadingDetails.size());
         Object[][] tempObj = new Object[itemsLoadingDetails.size()][];
@@ -171,7 +219,10 @@ public class TestDataForOracle implements Paths {
         Yank.executeBatchSQLKey(sql, tempObj);
     }
 
-    //closing connection
+    /**
+     * the method is using the build in method of Yank library
+     * for closing the connection to the database
+     */
     public void closeConnection(){
         Yank.releaseAllConnectionPools();
     }

@@ -1,10 +1,11 @@
 package DataBase.src.main.java.DataBase.POJOForTables;
 
+/**
+ * class representing the database ItemsDetails Table
+ * for filling the data in the table
+ */
 public class ItemsDetails {
 
-
-    //class representing the database ItemsDetails Table
-    //for filling the data in the table
 
 
     private String itemQuantity;
